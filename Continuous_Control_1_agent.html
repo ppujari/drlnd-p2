@@ -11856,8 +11856,8 @@ Unity Academy name: Academy
         Number of External Brains : 1
         Lesson number : 0
         Reset Parameters :
-		goal_size -&gt; 5.0
 		goal_speed -&gt; 1.0
+		goal_size -&gt; 5.0
 Unity brain name: ReacherBrain
         Number of Visual Observations (per agent): 0
         Vector Observation space type: continuous
@@ -11980,7 +11980,7 @@ The state for the first agent looks like: [ 0.00000000e+00 -4.00000000e+00  0.00
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">env_info</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">reset</span><span class="p">(</span><span class="n">train_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="n">brain_name</span><span class="p">]</span>     <span class="c1"># reset the environment    </span>
@@ -12004,24 +12004,6 @@ The state for the first agent looks like: [ 0.00000000e+00 -4.00000000e+00  0.00
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Total score (averaged over agents) this episode: 0.0
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
@@ -12037,7 +12019,7 @@ The state for the first agent looks like: [ 0.00000000e+00 -4.00000000e+00  0.00
 <div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">agent</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">(</span><span class="n">state_size</span><span class="o">=</span><span class="n">state_size</span><span class="p">,</span> <span class="n">action_size</span><span class="o">=</span><span class="n">action_size</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#agent = Agent(state_size=state_size, action_size=action_size, random_seed=2)</span>
 </pre></div>
 
 </div>
@@ -12058,19 +12040,20 @@ The state for the first agent looks like: [ 0.00000000e+00 -4.00000000e+00  0.00
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">ddpg</span><span class="p">(</span><span class="n">n_episodes</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">max_t</span><span class="o">=</span><span class="mi">500</span><span class="p">):</span>
     <span class="n">avg_score</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">chkpt_episodes</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="n">chkpt_episodes</span> <span class="o">=</span> <span class="mi">50</span>
     <span class="n">scores_deque</span> <span class="o">=</span> <span class="n">deque</span><span class="p">(</span><span class="n">maxlen</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
     <span class="n">scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_agents</span><span class="p">)</span>
-    
+    <span class="n">time_steps</span> <span class="o">=</span> <span class="mi">20</span>
+    <span class="n">num_update</span> <span class="o">=</span> <span class="mi">10</span>
     <span class="n">len_agents</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">num_agents</span><span class="p">))</span>
     
     <span class="n">env_solv</span> <span class="o">=</span> <span class="kc">False</span>
-    <span class="n">env_info</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">reset</span><span class="p">(</span><span class="n">train_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="n">brain_name</span><span class="p">]</span>
+    <span class="n">env_info</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">reset</span><span class="p">(</span><span class="n">train_mode</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="n">brain_name</span><span class="p">]</span>
     
     <span class="n">states</span> <span class="o">=</span> <span class="n">env_info</span><span class="o">.</span><span class="n">vector_observations</span>
     
@@ -12088,7 +12071,6 @@ The state for the first agent looks like: [ 0.00000000e+00 -4.00000000e+00  0.00
 
         <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_t</span><span class="p">):</span>
             <span class="n">actions</span> <span class="o">=</span> <span class="p">[</span><span class="n">agent</span><span class="o">.</span><span class="n">act</span><span class="p">(</span><span class="n">states</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">agent</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">agents</span><span class="p">)]</span>
-            <span class="c1">#actions = [np.clip(act, -1, 1) for act in actions]</span>
             
             <span class="n">env_info</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">actions</span><span class="p">)[</span><span class="n">brain_name</span><span class="p">]</span>
             <span class="n">next_states</span> <span class="o">=</span> <span class="n">env_info</span><span class="o">.</span><span class="n">vector_observations</span>         <span class="c1"># get next state (for each agent)</span>
@@ -12096,9 +12078,12 @@ The state for the first agent looks like: [ 0.00000000e+00 -4.00000000e+00  0.00
             <span class="n">dones</span> <span class="o">=</span> <span class="n">env_info</span><span class="o">.</span><span class="n">local_done</span>                        <span class="c1"># see if episode finished</span>
             
             <span class="n">step_tuple</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">agents</span><span class="p">,</span> <span class="n">states</span><span class="p">,</span> <span class="n">actions</span><span class="p">,</span> <span class="n">rewards</span><span class="p">,</span> <span class="n">next_states</span><span class="p">,</span> <span class="n">dones</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">agent</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">s_</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">step_tuple</span><span class="p">:</span>
-                <span class="n">agent</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">s_</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
             
+            <span class="k">for</span> <span class="n">agent</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">s_</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">step_tuple</span><span class="p">:</span>
+                <span class="n">agent</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">s_</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+                <span class="k">if</span> <span class="p">(</span> <span class="n">t</span> <span class="o">%</span> <span class="n">time_steps</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+                    <span class="c1">#agent.step(s, a, r, s_, d)</span>
+                    <span class="n">agent</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">num_update</span><span class="p">)</span>
             <span class="n">states</span>  <span class="o">=</span> <span class="n">next_states</span>
             <span class="n">scores</span> <span class="o">+=</span> <span class="n">rewards</span>                                  <span class="c1"># update the score (for each agent)</span>
             <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">dones</span><span class="p">):</span>                                  <span class="c1"># exit loop if episode finished</span>
@@ -12106,7 +12091,7 @@ The state for the first agent looks like: [ 0.00000000e+00 -4.00000000e+00  0.00
                 
         <span class="n">score</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>        
         <span class="n">avg_score</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
-        <span class="n">scores_deque</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">avg_score</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">scores_deque</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
 
         <span class="n">avg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">scores_deque</span><span class="p">)</span>
             
@@ -12129,10 +12114,356 @@ The state for the first agent looks like: [ 0.00000000e+00 -4.00000000e+00  0.00
                 <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">agent</span><span class="o">.</span><span class="n">critic_local</span><span class="o">.</span><span class="n">state_dict</span><span class="p">(),</span> <span class="n">chkpt_path_critic</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">avg_score</span>
+</pre></div>
 
-<span class="n">scores</span> <span class="o">=</span> <span class="n">ddpg</span><span class="p">()</span>
+</div>
+</div>
+</div>
 
-<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">scores</span> <span class="o">=</span> <span class="n">ddpg</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Episode 1	Average Score: 0.82	Score: 0.82 	Max Score: 0.82
+Episode 2	Average Score: 0.95	Score: 1.08 	Max Score: 1.08
+Episode 3	Average Score: 0.99	Score: 1.08 	Max Score: 1.08
+Episode 4	Average Score: 1.17	Score: 1.70 	Max Score: 1.70
+Episode 5	Average Score: 1.29	Score: 1.75 	Max Score: 1.75
+Episode 6	Average Score: 1.36	Score: 1.75 	Max Score: 1.75
+Episode 7	Average Score: 1.43	Score: 1.83 	Max Score: 1.83
+Episode 8	Average Score: 1.50	Score: 1.96 	Max Score: 1.96
+Episode 9	Average Score: 1.55	Score: 1.96 	Max Score: 1.96
+Episode 10	Average Score: 1.59	Score: 1.96 	Max Score: 1.96
+Episode 11	Average Score: 1.62	Score: 1.96 	Max Score: 1.96
+Episode 12	Average Score: 1.65	Score: 1.96 	Max Score: 1.96
+Episode 13	Average Score: 1.70	Score: 2.29 	Max Score: 2.29
+Episode 14	Average Score: 1.75	Score: 2.39 	Max Score: 2.39
+Episode 15	Average Score: 1.79	Score: 2.39 	Max Score: 2.39
+Episode 16	Average Score: 1.87	Score: 3.03 	Max Score: 3.03
+Episode 17	Average Score: 1.94	Score: 3.08 	Max Score: 3.08
+Episode 18	Average Score: 2.00	Score: 3.08 	Max Score: 3.08
+Episode 19	Average Score: 2.06	Score: 3.08 	Max Score: 3.08
+Episode 20	Average Score: 2.12	Score: 3.18 	Max Score: 3.18
+Episode 21	Average Score: 2.17	Score: 3.18 	Max Score: 3.18
+Episode 22	Average Score: 2.23	Score: 3.46 	Max Score: 3.46
+Episode 23	Average Score: 2.28	Score: 3.57 	Max Score: 3.57
+Episode 24	Average Score: 2.34	Score: 3.57 	Max Score: 3.57
+Episode 25	Average Score: 2.41	Score: 4.03 	Max Score: 4.03
+Episode 26	Average Score: 2.48	Score: 4.43 	Max Score: 4.43
+Episode 27	Average Score: 2.56	Score: 4.43 	Max Score: 4.43
+Episode 28	Average Score: 2.63	Score: 4.52 	Max Score: 4.52
+Episode 29	Average Score: 2.70	Score: 4.64 	Max Score: 4.64
+Episode 30	Average Score: 2.76	Score: 4.64 	Max Score: 4.64
+Episode 31	Average Score: 2.83	Score: 4.93 	Max Score: 4.93
+Episode 32	Average Score: 2.90	Score: 5.10 	Max Score: 5.10
+Episode 33	Average Score: 2.97	Score: 5.10 	Max Score: 5.10
+Episode 34	Average Score: 3.03	Score: 5.20 	Max Score: 5.20
+Episode 35	Average Score: 3.10	Score: 5.48 	Max Score: 5.48
+Episode 36	Average Score: 3.17	Score: 5.48 	Max Score: 5.48
+Episode 37	Average Score: 3.23	Score: 5.54 	Max Score: 5.54
+Episode 38	Average Score: 3.29	Score: 5.54 	Max Score: 5.54
+Episode 39	Average Score: 3.35	Score: 5.54 	Max Score: 5.54
+Episode 40	Average Score: 3.41	Score: 5.60 	Max Score: 5.60
+Episode 41	Average Score: 3.46	Score: 5.60 	Max Score: 5.60
+Episode 42	Average Score: 3.51	Score: 5.60 	Max Score: 5.60
+Episode 43	Average Score: 3.56	Score: 5.60 	Max Score: 5.60
+Episode 44	Average Score: 3.61	Score: 5.60 	Max Score: 5.60
+Episode 45	Average Score: 3.65	Score: 5.60 	Max Score: 5.60
+Episode 46	Average Score: 3.70	Score: 5.75 	Max Score: 5.75
+Episode 47	Average Score: 3.74	Score: 5.83 	Max Score: 5.83
+Episode 48	Average Score: 3.79	Score: 5.83 	Max Score: 5.83
+Episode 49	Average Score: 3.83	Score: 6.08 	Max Score: 6.08
+Episode 50	Average Score: 3.88	Score: 6.08 	Max Score: 6.08
+episodes: 50	avg: 3.88
+Episode 51	Average Score: 3.92	Score: 6.08 	Max Score: 6.08
+Episode 52	Average Score: 3.96	Score: 6.16 	Max Score: 6.16
+Episode 53	Average Score: 4.01	Score: 6.16 	Max Score: 6.16
+Episode 54	Average Score: 4.05	Score: 6.16 	Max Score: 6.16
+Episode 55	Average Score: 4.08	Score: 6.16 	Max Score: 6.16
+Episode 56	Average Score: 4.12	Score: 6.16 	Max Score: 6.16
+Episode 57	Average Score: 4.16	Score: 6.16 	Max Score: 6.16
+Episode 58	Average Score: 4.19	Score: 6.16 	Max Score: 6.16
+Episode 59	Average Score: 4.22	Score: 6.16 	Max Score: 6.16
+Episode 60	Average Score: 4.26	Score: 6.16 	Max Score: 6.16
+Episode 61	Average Score: 4.29	Score: 6.32 	Max Score: 6.32
+Episode 62	Average Score: 4.32	Score: 6.32 	Max Score: 6.32
+Episode 63	Average Score: 4.35	Score: 6.32 	Max Score: 6.32
+Episode 64	Average Score: 4.39	Score: 6.32 	Max Score: 6.32
+Episode 65	Average Score: 4.42	Score: 6.32 	Max Score: 6.32
+Episode 66	Average Score: 4.44	Score: 6.32 	Max Score: 6.32
+Episode 67	Average Score: 4.47	Score: 6.32 	Max Score: 6.32
+Episode 68	Average Score: 4.50	Score: 6.38 	Max Score: 6.38
+Episode 69	Average Score: 4.53	Score: 6.38 	Max Score: 6.38
+Episode 70	Average Score: 4.56	Score: 6.48 	Max Score: 6.48
+Episode 71	Average Score: 4.58	Score: 6.48 	Max Score: 6.48
+Episode 72	Average Score: 4.61	Score: 6.48 	Max Score: 6.48
+Episode 73	Average Score: 4.63	Score: 6.48 	Max Score: 6.48
+Episode 74	Average Score: 4.66	Score: 6.48 	Max Score: 6.48
+Episode 75	Average Score: 4.68	Score: 6.48 	Max Score: 6.48
+Episode 76	Average Score: 4.71	Score: 6.76 	Max Score: 6.76
+Episode 77	Average Score: 4.74	Score: 6.87 	Max Score: 6.87
+Episode 78	Average Score: 4.77	Score: 6.87 	Max Score: 6.87
+Episode 79	Average Score: 4.79	Score: 7.01 	Max Score: 7.01
+Episode 80	Average Score: 4.83	Score: 7.26 	Max Score: 7.26
+Episode 81	Average Score: 4.86	Score: 7.26 	Max Score: 7.26
+Episode 82	Average Score: 4.89	Score: 7.56 	Max Score: 7.56
+Episode 83	Average Score: 4.92	Score: 7.56 	Max Score: 7.56
+Episode 84	Average Score: 4.95	Score: 7.56 	Max Score: 7.56
+Episode 85	Average Score: 4.99	Score: 8.08 	Max Score: 8.08
+Episode 86	Average Score: 5.03	Score: 8.36 	Max Score: 8.36
+Episode 87	Average Score: 5.07	Score: 8.36 	Max Score: 8.36
+Episode 88	Average Score: 5.10	Score: 8.42 	Max Score: 8.42
+Episode 89	Average Score: 5.15	Score: 8.88 	Max Score: 8.88
+Episode 90	Average Score: 5.19	Score: 8.88 	Max Score: 8.88
+Episode 91	Average Score: 5.23	Score: 8.88 	Max Score: 8.88
+Episode 92	Average Score: 5.27	Score: 9.10 	Max Score: 9.10
+Episode 93	Average Score: 5.31	Score: 9.10 	Max Score: 9.10
+Episode 94	Average Score: 5.36	Score: 9.38 	Max Score: 9.38
+Episode 95	Average Score: 5.40	Score: 9.57 	Max Score: 9.57
+Episode 96	Average Score: 5.44	Score: 9.57 	Max Score: 9.57
+Episode 97	Average Score: 5.49	Score: 9.97 	Max Score: 9.97
+Episode 98	Average Score: 5.54	Score: 10.19 	Max Score: 10.19
+Episode 99	Average Score: 5.59	Score: 10.19 	Max Score: 10.19
+Episode 100	Average Score: 5.64	Score: 11.08 	Max Score: 11.08
+episodes: 100	avg: 5.64
+Episode 101	Average Score: 5.75	Score: 11.38 	Max Score: 11.38
+Episode 102	Average Score: 5.85	Score: 11.38 	Max Score: 11.38
+Episode 103	Average Score: 5.96	Score: 12.19 	Max Score: 12.19
+Episode 104	Average Score: 6.07	Score: 13.04 	Max Score: 13.04
+Episode 105	Average Score: 6.19	Score: 13.04 	Max Score: 13.04
+Episode 106	Average Score: 6.30	Score: 13.37 	Max Score: 13.37
+Episode 107	Average Score: 6.42	Score: 14.09 	Max Score: 14.09
+Episode 108	Average Score: 6.55	Score: 14.09 	Max Score: 14.09
+Episode 109	Average Score: 6.67	Score: 14.44 	Max Score: 14.44
+Episode 110	Average Score: 6.80	Score: 14.58 	Max Score: 14.58
+Episode 111	Average Score: 6.92	Score: 14.58 	Max Score: 14.58
+Episode 112	Average Score: 7.05	Score: 14.89 	Max Score: 14.89
+Episode 113	Average Score: 7.18	Score: 14.89 	Max Score: 14.89
+Episode 114	Average Score: 7.30	Score: 14.89 	Max Score: 14.89
+Episode 115	Average Score: 7.44	Score: 15.82 	Max Score: 15.82
+Episode 116	Average Score: 7.57	Score: 16.06 	Max Score: 16.06
+Episode 117	Average Score: 7.70	Score: 16.06 	Max Score: 16.06
+Episode 118	Average Score: 7.84	Score: 16.88 	Max Score: 16.88
+Episode 119	Average Score: 7.98	Score: 17.26 	Max Score: 17.26
+Episode 120	Average Score: 8.12	Score: 17.26 	Max Score: 17.26
+Episode 121	Average Score: 8.26	Score: 17.70 	Max Score: 17.70
+Episode 122	Average Score: 8.41	Score: 18.37 	Max Score: 18.37
+Episode 123	Average Score: 8.56	Score: 18.37 	Max Score: 18.37
+Episode 124	Average Score: 8.71	Score: 18.37 	Max Score: 18.37
+Episode 125	Average Score: 8.86	Score: 18.77 	Max Score: 18.77
+Episode 126	Average Score: 9.00	Score: 18.77 	Max Score: 18.77
+Episode 127	Average Score: 9.16	Score: 20.03 	Max Score: 20.03
+Episode 128	Average Score: 9.32	Score: 20.58 	Max Score: 20.58
+Episode 129	Average Score: 9.48	Score: 20.58 	Max Score: 20.58
+Episode 130	Average Score: 9.64	Score: 21.04 	Max Score: 21.04
+Episode 131	Average Score: 9.80	Score: 21.30 	Max Score: 21.30
+Episode 132	Average Score: 9.97	Score: 21.30 	Max Score: 21.30
+Episode 133	Average Score: 10.13	Score: 21.46 	Max Score: 21.46
+Episode 134	Average Score: 10.29	Score: 21.55 	Max Score: 21.55
+Episode 135	Average Score: 10.45	Score: 21.55 	Max Score: 21.55
+Episode 136	Average Score: 10.62	Score: 21.86 	Max Score: 21.86
+Episode 137	Average Score: 10.79	Score: 22.66 	Max Score: 22.66
+Episode 138	Average Score: 10.96	Score: 22.66 	Max Score: 22.66
+Episode 139	Average Score: 11.13	Score: 22.77 	Max Score: 22.77
+Episode 140	Average Score: 11.30	Score: 22.83 	Max Score: 22.83
+Episode 141	Average Score: 11.48	Score: 22.83 	Max Score: 22.83
+Episode 142	Average Score: 11.66	Score: 23.98 	Max Score: 23.98
+Episode 143	Average Score: 11.86	Score: 25.20 	Max Score: 25.20
+Episode 144	Average Score: 12.05	Score: 25.20 	Max Score: 25.20
+Episode 145	Average Score: 12.25	Score: 25.77 	Max Score: 25.77
+Episode 146	Average Score: 12.47	Score: 27.07 	Max Score: 27.07
+Episode 147	Average Score: 12.68	Score: 27.07 	Max Score: 27.07
+Episode 148	Average Score: 12.90	Score: 27.56 	Max Score: 27.56
+Episode 149	Average Score: 13.11	Score: 27.86 	Max Score: 27.86
+Episode 150	Average Score: 13.33	Score: 27.86 	Max Score: 27.86
+episodes: 150	avg: 13.33
+Episode 151	Average Score: 13.55	Score: 28.26 	Max Score: 28.26
+Episode 152	Average Score: 13.78	Score: 29.18 	Max Score: 29.18
+Episode 153	Average Score: 14.01	Score: 29.18 	Max Score: 29.18
+Episode 154	Average Score: 14.25	Score: 29.62 	Max Score: 29.62
+Episode 155	Average Score: 14.49	Score: 29.99 	Max Score: 29.99
+Episode 156	Average Score: 14.73	Score: 29.99 	Max Score: 29.99
+Episode 157	Average Score: 14.96	Score: 30.07 	Max Score: 30.07
+Episode 158	Average Score: 15.20	Score: 30.15 	Max Score: 30.15
+Episode 159	Average Score: 15.44	Score: 30.15 	Max Score: 30.15
+Episode 160	Average Score: 15.69	Score: 30.60 	Max Score: 30.60
+Episode 161	Average Score: 15.94	Score: 31.43 	Max Score: 31.43
+Episode 162	Average Score: 16.19	Score: 31.45 	Max Score: 31.45
+Episode 163	Average Score: 16.45	Score: 31.99 	Max Score: 31.99
+Episode 164	Average Score: 16.71	Score: 32.44 	Max Score: 32.44
+Episode 165	Average Score: 16.97	Score: 32.44 	Max Score: 32.44
+Episode 166	Average Score: 17.24	Score: 32.94 	Max Score: 32.94
+Episode 167	Average Score: 17.50	Score: 32.94 	Max Score: 32.94
+Episode 168	Average Score: 17.77	Score: 32.94 	Max Score: 32.94
+Episode 169	Average Score: 18.04	Score: 33.82 	Max Score: 33.82
+Episode 170	Average Score: 18.32	Score: 33.82 	Max Score: 33.82
+Episode 171	Average Score: 18.59	Score: 33.82 	Max Score: 33.82
+Episode 172	Average Score: 18.87	Score: 34.54 	Max Score: 34.54
+Episode 173	Average Score: 19.16	Score: 35.21 	Max Score: 35.21
+Episode 174	Average Score: 19.44	Score: 35.21 	Max Score: 35.21
+Episode 175	Average Score: 19.73	Score: 35.21 	Max Score: 35.21
+Episode 176	Average Score: 20.02	Score: 35.51 	Max Score: 35.51
+Episode 177	Average Score: 20.31	Score: 35.51 	Max Score: 35.51
+Episode 178	Average Score: 20.59	Score: 35.74 	Max Score: 35.74
+Episode 179	Average Score: 20.89	Score: 36.77 	Max Score: 36.77
+Episode 180	Average Score: 21.19	Score: 36.77 	Max Score: 36.77
+Episode 181	Average Score: 21.49	Score: 37.59 	Max Score: 37.59
+Episode 182	Average Score: 21.79	Score: 37.78 	Max Score: 37.78
+Episode 183	Average Score: 22.10	Score: 37.78 	Max Score: 37.78
+Episode 184	Average Score: 22.40	Score: 38.06 	Max Score: 38.06
+Episode 185	Average Score: 22.72	Score: 40.50 	Max Score: 40.50
+Episode 186	Average Score: 23.05	Score: 40.50 	Max Score: 40.50
+Episode 187	Average Score: 23.38	Score: 41.44 	Max Score: 41.44
+Episode 188	Average Score: 23.71	Score: 41.60 	Max Score: 41.60
+Episode 189	Average Score: 24.04	Score: 41.60 	Max Score: 41.60
+Episode 190	Average Score: 24.38	Score: 43.64 	Max Score: 43.64
+Episode 191	Average Score: 24.74	Score: 44.88 	Max Score: 44.88
+Episode 192	Average Score: 25.10	Score: 44.88 	Max Score: 44.88
+Episode 193	Average Score: 25.47	Score: 46.03 	Max Score: 46.03
+Episode 194	Average Score: 25.84	Score: 46.26 	Max Score: 46.26
+Episode 195	Average Score: 26.21	Score: 46.26 	Max Score: 46.26
+Episode 196	Average Score: 26.58	Score: 46.98 	Max Score: 46.98
+Episode 197	Average Score: 26.95	Score: 46.98 	Max Score: 46.98
+Episode 198	Average Score: 27.32	Score: 46.98 	Max Score: 46.98
+Episode 199	Average Score: 27.69	Score: 47.08 	Max Score: 47.08
+Episode 200	Average Score: 28.05	Score: 47.08 	Max Score: 47.08
+episodes: 200	avg: 28.05
+Episode 201	Average Score: 28.40	Score: 47.08 	Max Score: 47.08
+Episode 202	Average Score: 28.76	Score: 47.14 	Max Score: 47.14
+Episode 203	Average Score: 29.12	Score: 47.55 	Max Score: 47.55
+Episode 204	Average Score: 29.46	Score: 47.55 	Max Score: 47.55
+Episode 205	Average Score: 29.81	Score: 48.16 	Max Score: 48.16
+Episode 206	Average Score: 30.17	Score: 48.79 	Max Score: 48.79
+env __solved__ @ i_episode=206, w/ avg_score=30.17
+Episode 207	Average Score: 30.51	Score: 48.79 	Max Score: 48.79
+Episode 208	Average Score: 30.86	Score: 49.01 	Max Score: 49.01
+Episode 209	Average Score: 31.21	Score: 49.54 	Max Score: 49.54
+Episode 210	Average Score: 31.56	Score: 49.54 	Max Score: 49.54
+Episode 211	Average Score: 31.92	Score: 50.64 	Max Score: 50.64
+Episode 212	Average Score: 32.29	Score: 51.89 	Max Score: 51.89
+Episode 213	Average Score: 32.66	Score: 51.89 	Max Score: 51.89
+Episode 214	Average Score: 33.04	Score: 52.15 	Max Score: 52.15
+Episode 215	Average Score: 33.41	Score: 52.81 	Max Score: 52.81
+Episode 216	Average Score: 33.77	Score: 52.81 	Max Score: 52.81
+Episode 217	Average Score: 34.15	Score: 54.15 	Max Score: 54.15
+Episode 218	Average Score: 34.53	Score: 54.43 	Max Score: 54.43
+Episode 219	Average Score: 34.90	Score: 54.43 	Max Score: 54.43
+Episode 220	Average Score: 35.28	Score: 55.16 	Max Score: 55.16
+Episode 221	Average Score: 35.66	Score: 55.24 	Max Score: 55.24
+Episode 222	Average Score: 36.02	Score: 55.24 	Max Score: 55.24
+Episode 223	Average Score: 36.39	Score: 55.40 	Max Score: 55.40
+Episode 224	Average Score: 36.77	Score: 55.72 	Max Score: 55.72
+Episode 225	Average Score: 37.14	Score: 55.72 	Max Score: 55.72
+Episode 226	Average Score: 37.51	Score: 56.37 	Max Score: 56.37
+Episode 227	Average Score: 37.88	Score: 56.76 	Max Score: 56.76
+Episode 228	Average Score: 38.24	Score: 56.76 	Max Score: 56.76
+Episode 229	Average Score: 38.61	Score: 56.82 	Max Score: 56.82
+Episode 230	Average Score: 38.96	Score: 56.89 	Max Score: 56.89
+Episode 231	Average Score: 39.32	Score: 56.89 	Max Score: 56.89
+Episode 232	Average Score: 39.68	Score: 57.21 	Max Score: 57.21
+Episode 233	Average Score: 40.04	Score: 57.21 	Max Score: 57.21
+Episode 234	Average Score: 40.39	Score: 57.21 	Max Score: 57.21
+Episode 235	Average Score: 40.75	Score: 57.21 	Max Score: 57.21
+Episode 236	Average Score: 41.11	Score: 57.78 	Max Score: 57.78
+Episode 237	Average Score: 41.46	Score: 57.78 	Max Score: 57.78
+Episode 238	Average Score: 41.81	Score: 57.78 	Max Score: 57.78
+Episode 239	Average Score: 42.16	Score: 57.78 	Max Score: 57.78
+Episode 240	Average Score: 42.51	Score: 57.78 	Max Score: 57.78
+Episode 241	Average Score: 42.86	Score: 57.78 	Max Score: 57.78
+Episode 242	Average Score: 43.20	Score: 57.85 	Max Score: 57.85
+Episode 243	Average Score: 43.53	Score: 57.85 	Max Score: 57.85
+Episode 244	Average Score: 43.86	Score: 58.71 	Max Score: 58.71
+Episode 245	Average Score: 44.19	Score: 59.03 	Max Score: 59.03
+Episode 246	Average Score: 44.51	Score: 59.03 	Max Score: 59.03
+Episode 247	Average Score: 44.84	Score: 59.73 	Max Score: 59.73
+Episode 248	Average Score: 45.17	Score: 60.44 	Max Score: 60.44
+Episode 249	Average Score: 45.49	Score: 60.44 	Max Score: 60.44
+Episode 250	Average Score: 45.82	Score: 60.56 	Max Score: 60.56
+episodes: 250	avg: 45.82
+Episode 251	Average Score: 46.15	Score: 61.35 	Max Score: 61.35
+Episode 252	Average Score: 46.47	Score: 61.35 	Max Score: 61.35
+Episode 253	Average Score: 46.79	Score: 61.35 	Max Score: 61.35
+Episode 254	Average Score: 47.11	Score: 61.57 	Max Score: 61.57
+Episode 255	Average Score: 47.43	Score: 61.57 	Max Score: 61.57
+Episode 256	Average Score: 47.75	Score: 61.85 	Max Score: 61.85
+Episode 257	Average Score: 48.07	Score: 62.05 	Max Score: 62.05
+Episode 258	Average Score: 48.39	Score: 62.05 	Max Score: 62.05
+Episode 259	Average Score: 48.71	Score: 62.58 	Max Score: 62.58
+Episode 260	Average Score: 49.04	Score: 63.13 	Max Score: 63.13
+Episode 261	Average Score: 49.35	Score: 63.13 	Max Score: 63.13
+Episode 262	Average Score: 49.67	Score: 63.44 	Max Score: 63.44
+Episode 263	Average Score: 50.00	Score: 64.30 	Max Score: 64.30
+Episode 264	Average Score: 50.32	Score: 64.30 	Max Score: 64.30
+Episode 265	Average Score: 50.65	Score: 65.41 	Max Score: 65.41
+Episode 266	Average Score: 50.97	Score: 65.74 	Max Score: 65.74
+Episode 267	Average Score: 51.30	Score: 65.74 	Max Score: 65.74
+Episode 268	Average Score: 51.63	Score: 66.13 	Max Score: 66.13
+Episode 269	Average Score: 51.96	Score: 66.63 	Max Score: 66.63
+Episode 270	Average Score: 52.29	Score: 66.63 	Max Score: 66.63
+Episode 271	Average Score: 52.62	Score: 67.24 	Max Score: 67.24
+Episode 272	Average Score: 52.95	Score: 67.53 	Max Score: 67.53
+Episode 273	Average Score: 53.28	Score: 67.53 	Max Score: 67.53
+Episode 274	Average Score: 53.61	Score: 68.29 	Max Score: 68.29
+Episode 275	Average Score: 53.96	Score: 70.66 	Max Score: 70.66
+Episode 276	Average Score: 54.31	Score: 70.66 	Max Score: 70.66
+Episode 277	Average Score: 54.67	Score: 71.27 	Max Score: 71.27
+Episode 278	Average Score: 55.03	Score: 71.61 	Max Score: 71.61
+Episode 279	Average Score: 55.38	Score: 71.61 	Max Score: 71.61
+Episode 280	Average Score: 55.73	Score: 71.77 	Max Score: 71.77
+Episode 281	Average Score: 56.07	Score: 71.77 	Max Score: 71.77
+Episode 282	Average Score: 56.41	Score: 71.77 	Max Score: 71.77
+Episode 283	Average Score: 56.75	Score: 72.23 	Max Score: 72.23
+Episode 284	Average Score: 57.10	Score: 72.72 	Max Score: 72.72
+Episode 285	Average Score: 57.42	Score: 72.72 	Max Score: 72.72
+Episode 286	Average Score: 57.75	Score: 73.06 	Max Score: 73.06
+Episode 287	Average Score: 58.07	Score: 73.41 	Max Score: 73.41
+Episode 288	Average Score: 58.39	Score: 73.41 	Max Score: 73.41
+Episode 289	Average Score: 58.71	Score: 73.93 	Max Score: 73.93
+Episode 290	Average Score: 59.02	Score: 74.61 	Max Score: 74.61
+Episode 291	Average Score: 59.32	Score: 74.61 	Max Score: 74.61
+Episode 292	Average Score: 59.61	Score: 74.61 	Max Score: 74.61
+Episode 293	Average Score: 59.91	Score: 75.56 	Max Score: 75.56
+Episode 294	Average Score: 60.20	Score: 75.56 	Max Score: 75.56
+Episode 295	Average Score: 60.50	Score: 75.69 	Max Score: 75.69
+Episode 296	Average Score: 60.79	Score: 76.20 	Max Score: 76.20
+Episode 297	Average Score: 61.08	Score: 76.20 	Max Score: 76.20
+Episode 298	Average Score: 61.38	Score: 76.34 	Max Score: 76.34
+Episode 299	Average Score: 61.68	Score: 77.62 	Max Score: 77.62
+Episode 300	Average Score: 61.99	Score: 77.62 	Max Score: 77.62
+episodes: 300	avg: 61.99
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">scores</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Score&#39;</span><span class="p">)</span>
@@ -12153,324 +12484,10 @@ The state for the first agent looks like: [ 0.00000000e+00 -4.00000000e+00  0.00
 <div class="prompt"></div>
 
 
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Episode 1	Average Score: 1.04	Score: 1.04 	Max Score: 1.04
-Episode 2	Average Score: 1.12	Score: 1.21 	Max Score: 1.21
-Episode 3	Average Score: 1.15	Score: 1.21 	Max Score: 1.21
-Episode 4	Average Score: 1.17	Score: 1.21 	Max Score: 1.21
-Episode 5	Average Score: 1.22	Score: 1.43 	Max Score: 1.43
-Episode 6	Average Score: 1.25	Score: 1.43 	Max Score: 1.43
-Episode 7	Average Score: 1.28	Score: 1.43 	Max Score: 1.43
-Episode 8	Average Score: 1.30	Score: 1.43 	Max Score: 1.43
-Episode 9	Average Score: 1.31	Score: 1.43 	Max Score: 1.43
-Episode 10	Average Score: 1.32	Score: 1.43 	Max Score: 1.43
-Episode 11	Average Score: 1.33	Score: 1.43 	Max Score: 1.43
-Episode 12	Average Score: 1.34	Score: 1.43 	Max Score: 1.43
-Episode 13	Average Score: 1.35	Score: 1.43 	Max Score: 1.43
-Episode 14	Average Score: 1.35	Score: 1.43 	Max Score: 1.43
-Episode 15	Average Score: 1.36	Score: 1.43 	Max Score: 1.43
-Episode 16	Average Score: 1.36	Score: 1.43 	Max Score: 1.43
-Episode 17	Average Score: 1.38	Score: 1.70 	Max Score: 1.70
-Episode 18	Average Score: 1.40	Score: 1.70 	Max Score: 1.70
-Episode 19	Average Score: 1.43	Score: 1.88 	Max Score: 1.88
-Episode 20	Average Score: 1.49	Score: 2.70 	Max Score: 2.70
-Episode 21	Average Score: 1.55	Score: 2.70 	Max Score: 2.70
-Episode 22	Average Score: 1.62	Score: 3.09 	Max Score: 3.09
-Episode 23	Average Score: 1.72	Score: 3.85 	Max Score: 3.85
-Episode 24	Average Score: 1.80	Score: 3.85 	Max Score: 3.85
-Episode 25	Average Score: 1.90	Score: 4.25 	Max Score: 4.25
-Episode 26	Average Score: 2.00	Score: 4.50 	Max Score: 4.50
-Episode 27	Average Score: 2.09	Score: 4.50 	Max Score: 4.50
-Episode 28	Average Score: 2.19	Score: 4.75 	Max Score: 4.75
-Episode 29	Average Score: 2.28	Score: 4.75 	Max Score: 4.75
-Episode 30	Average Score: 2.36	Score: 4.75 	Max Score: 4.75
-Episode 31	Average Score: 2.46	Score: 5.32 	Max Score: 5.32
-Episode 32	Average Score: 2.55	Score: 5.54 	Max Score: 5.54
-Episode 33	Average Score: 2.64	Score: 5.54 	Max Score: 5.54
-Episode 34	Average Score: 2.73	Score: 5.71 	Max Score: 5.71
-Episode 35	Average Score: 2.82	Score: 5.78 	Max Score: 5.78
-Episode 36	Average Score: 2.90	Score: 5.78 	Max Score: 5.78
-Episode 37	Average Score: 3.00	Score: 6.54 	Max Score: 6.54
-Episode 38	Average Score: 3.11	Score: 7.13 	Max Score: 7.13
-Episode 39	Average Score: 3.21	Score: 7.13 	Max Score: 7.13
-Episode 40	Average Score: 3.32	Score: 7.62 	Max Score: 7.62
-Episode 41	Average Score: 3.43	Score: 7.70 	Max Score: 7.70
-Episode 42	Average Score: 3.53	Score: 7.70 	Max Score: 7.70
-Episode 43	Average Score: 3.63	Score: 7.98 	Max Score: 7.98
-Episode 44	Average Score: 3.75	Score: 8.61 	Max Score: 8.61
-Episode 45	Average Score: 3.86	Score: 8.61 	Max Score: 8.61
-Episode 46	Average Score: 3.96	Score: 8.77 	Max Score: 8.77
-Episode 47	Average Score: 4.07	Score: 8.96 	Max Score: 8.96
-Episode 48	Average Score: 4.17	Score: 8.96 	Max Score: 8.96
-Episode 49	Average Score: 4.29	Score: 10.16 	Max Score: 10.16
-Episode 50	Average Score: 4.41	Score: 10.40 	Max Score: 10.40
-Episode 51	Average Score: 4.53	Score: 10.40 	Max Score: 10.40
-Episode 52	Average Score: 4.66	Score: 11.12 	Max Score: 11.12
-Episode 53	Average Score: 4.79	Score: 11.61 	Max Score: 11.61
-Episode 54	Average Score: 4.92	Score: 11.61 	Max Score: 11.61
-Episode 55	Average Score: 5.04	Score: 11.69 	Max Score: 11.69
-Episode 56	Average Score: 5.16	Score: 11.69 	Max Score: 11.69
-Episode 57	Average Score: 5.27	Score: 11.69 	Max Score: 11.69
-Episode 58	Average Score: 5.39	Score: 12.16 	Max Score: 12.16
-Episode 59	Average Score: 5.51	Score: 12.37 	Max Score: 12.37
-Episode 60	Average Score: 5.62	Score: 12.37 	Max Score: 12.37
-Episode 61	Average Score: 5.75	Score: 13.07 	Max Score: 13.07
-Episode 62	Average Score: 5.88	Score: 13.99 	Max Score: 13.99
-Episode 63	Average Score: 6.01	Score: 13.99 	Max Score: 13.99
-Episode 64	Average Score: 6.13	Score: 13.99 	Max Score: 13.99
-Episode 65	Average Score: 6.25	Score: 13.99 	Max Score: 13.99
-Episode 66	Average Score: 6.37	Score: 13.99 	Max Score: 13.99
-Episode 67	Average Score: 6.50	Score: 14.71 	Max Score: 14.71
-Episode 68	Average Score: 6.63	Score: 15.92 	Max Score: 15.92
-Episode 69	Average Score: 6.77	Score: 15.92 	Max Score: 15.92
-Episode 70	Average Score: 6.90	Score: 15.92 	Max Score: 15.92
-Episode 71	Average Score: 7.03	Score: 16.05 	Max Score: 16.05
-Episode 72	Average Score: 7.15	Score: 16.05 	Max Score: 16.05
-Episode 73	Average Score: 7.28	Score: 16.21 	Max Score: 16.21
-Episode 74	Average Score: 7.40	Score: 16.21 	Max Score: 16.21
-Episode 75	Average Score: 7.52	Score: 16.21 	Max Score: 16.21
-Episode 76	Average Score: 7.64	Score: 16.84 	Max Score: 16.84
-Episode 77	Average Score: 7.76	Score: 17.16 	Max Score: 17.16
-Episode 78	Average Score: 7.88	Score: 17.16 	Max Score: 17.16
-Episode 79	Average Score: 8.01	Score: 17.57 	Max Score: 17.57
-Episode 80	Average Score: 8.13	Score: 17.76 	Max Score: 17.76
-Episode 81	Average Score: 8.25	Score: 17.76 	Max Score: 17.76
-Episode 82	Average Score: 8.36	Score: 17.93 	Max Score: 17.93
-Episode 83	Average Score: 8.49	Score: 19.07 	Max Score: 19.07
-Episode 84	Average Score: 8.62	Score: 19.07 	Max Score: 19.07
-Episode 85	Average Score: 8.75	Score: 19.58 	Max Score: 19.58
-Episode 86	Average Score: 8.88	Score: 20.35 	Max Score: 20.35
-Episode 87	Average Score: 9.01	Score: 20.35 	Max Score: 20.35
-Episode 88	Average Score: 9.14	Score: 20.47 	Max Score: 20.47
-Episode 89	Average Score: 9.29	Score: 22.36 	Max Score: 22.36
-Episode 90	Average Score: 9.44	Score: 22.36 	Max Score: 22.36
-Episode 91	Average Score: 9.59	Score: 22.90 	Max Score: 22.90
-Episode 92	Average Score: 9.75	Score: 24.30 	Max Score: 24.30
-Episode 93	Average Score: 9.90	Score: 24.30 	Max Score: 24.30
-Episode 94	Average Score: 10.06	Score: 24.60 	Max Score: 24.60
-Episode 95	Average Score: 10.22	Score: 25.13 	Max Score: 25.13
-Episode 96	Average Score: 10.37	Score: 25.13 	Max Score: 25.13
-Episode 97	Average Score: 10.54	Score: 26.37 	Max Score: 26.37
-Episode 98	Average Score: 10.70	Score: 26.57 	Max Score: 26.57
-Episode 99	Average Score: 10.86	Score: 26.57 	Max Score: 26.57
-Episode 100	Average Score: 11.02	Score: 26.90 	Max Score: 26.90
-episodes: 100	avg: 11.02
-Episode 101	Average Score: 11.29	Score: 27.71 	Max Score: 27.71
-Episode 102	Average Score: 11.55	Score: 27.71 	Max Score: 27.71
-Episode 103	Average Score: 11.82	Score: 27.83 	Max Score: 27.83
-Episode 104	Average Score: 12.09	Score: 28.22 	Max Score: 28.22
-Episode 105	Average Score: 12.36	Score: 28.22 	Max Score: 28.22
-Episode 106	Average Score: 12.63	Score: 28.78 	Max Score: 28.78
-Episode 107	Average Score: 12.91	Score: 29.02 	Max Score: 29.02
-Episode 108	Average Score: 13.18	Score: 29.02 	Max Score: 29.02
-Episode 109	Average Score: 13.46	Score: 29.32 	Max Score: 29.32
-Episode 110	Average Score: 13.75	Score: 30.32 	Max Score: 30.32
-Episode 111	Average Score: 14.04	Score: 30.32 	Max Score: 30.32
-Episode 112	Average Score: 14.34	Score: 31.31 	Max Score: 31.31
-Episode 113	Average Score: 14.65	Score: 32.58 	Max Score: 32.58
-Episode 114	Average Score: 14.96	Score: 32.62 	Max Score: 32.62
-Episode 115	Average Score: 15.28	Score: 32.75 	Max Score: 32.75
-Episode 116	Average Score: 15.60	Score: 33.57 	Max Score: 33.57
-Episode 117	Average Score: 15.92	Score: 33.57 	Max Score: 33.57
-Episode 118	Average Score: 16.24	Score: 34.00 	Max Score: 34.00
-Episode 119	Average Score: 16.56	Score: 34.25 	Max Score: 34.25
-Episode 120	Average Score: 16.88	Score: 34.25 	Max Score: 34.25
-Episode 121	Average Score: 17.20	Score: 34.79 	Max Score: 34.79
-Episode 122	Average Score: 17.52	Score: 35.51 	Max Score: 35.51
-Episode 123	Average Score: 17.84	Score: 35.51 	Max Score: 35.51
-Episode 124	Average Score: 18.16	Score: 35.51 	Max Score: 35.51
-Episode 125	Average Score: 18.47	Score: 35.95 	Max Score: 35.95
-Episode 126	Average Score: 18.79	Score: 35.95 	Max Score: 35.95
-Episode 127	Average Score: 19.11	Score: 36.84 	Max Score: 36.84
-Episode 128	Average Score: 19.44	Score: 37.49 	Max Score: 37.49
-Episode 129	Average Score: 19.77	Score: 37.49 	Max Score: 37.49
-Episode 130	Average Score: 20.10	Score: 37.90 	Max Score: 37.90
-Episode 131	Average Score: 20.43	Score: 38.42 	Max Score: 38.42
-Episode 132	Average Score: 20.76	Score: 38.42 	Max Score: 38.42
-Episode 133	Average Score: 21.09	Score: 38.66 	Max Score: 38.66
-Episode 134	Average Score: 21.42	Score: 38.82 	Max Score: 38.82
-Episode 135	Average Score: 21.75	Score: 38.82 	Max Score: 38.82
-Episode 136	Average Score: 22.10	Score: 40.78 	Max Score: 40.78
-Episode 137	Average Score: 22.48	Score: 44.11 	Max Score: 44.11
-Episode 138	Average Score: 22.85	Score: 44.11 	Max Score: 44.11
-Episode 139	Average Score: 23.23	Score: 46.04 	Max Score: 46.04
-Episode 140	Average Score: 23.62	Score: 46.67 	Max Score: 46.67
-Episode 141	Average Score: 24.01	Score: 46.67 	Max Score: 46.67
-Episode 142	Average Score: 24.41	Score: 47.29 	Max Score: 47.29
-Episode 143	Average Score: 24.81	Score: 47.69 	Max Score: 47.69
-Episode 144	Average Score: 25.20	Score: 47.69 	Max Score: 47.69
-Episode 145	Average Score: 25.59	Score: 47.69 	Max Score: 47.69
-Episode 146	Average Score: 25.99	Score: 49.05 	Max Score: 49.05
-Episode 147	Average Score: 26.39	Score: 49.05 	Max Score: 49.05
-Episode 148	Average Score: 26.80	Score: 49.47 	Max Score: 49.47
-Episode 149	Average Score: 27.20	Score: 50.09 	Max Score: 50.09
-Episode 150	Average Score: 27.59	Score: 50.09 	Max Score: 50.09
-Episode 151	Average Score: 27.99	Score: 50.09 	Max Score: 50.09
-Episode 152	Average Score: 28.38	Score: 50.09 	Max Score: 50.09
-Episode 153	Average Score: 28.77	Score: 50.09 	Max Score: 50.09
-Episode 154	Average Score: 29.16	Score: 50.60 	Max Score: 50.60
-Episode 155	Average Score: 29.55	Score: 51.29 	Max Score: 51.29
-Episode 156	Average Score: 29.95	Score: 51.29 	Max Score: 51.29
-Episode 157	Average Score: 30.35	Score: 51.55 	Max Score: 51.55
-env __solved__ @ i_episode=157, w/ avg_score=30.35
-Episode 158	Average Score: 30.74	Score: 51.72 	Max Score: 51.72
-Episode 159	Average Score: 31.14	Score: 51.72 	Max Score: 51.72
-Episode 160	Average Score: 31.53	Score: 52.09 	Max Score: 52.09
-Episode 161	Average Score: 31.93	Score: 52.36 	Max Score: 52.36
-Episode 162	Average Score: 32.31	Score: 52.36 	Max Score: 52.36
-Episode 163	Average Score: 32.69	Score: 52.36 	Max Score: 52.36
-Episode 164	Average Score: 33.08	Score: 52.47 	Max Score: 52.47
-Episode 165	Average Score: 33.46	Score: 52.47 	Max Score: 52.47
-Episode 166	Average Score: 33.85	Score: 53.08 	Max Score: 53.08
-Episode 167	Average Score: 34.24	Score: 53.08 	Max Score: 53.08
-Episode 168	Average Score: 34.61	Score: 53.08 	Max Score: 53.08
-Episode 169	Average Score: 34.98	Score: 53.41 	Max Score: 53.41
-Episode 170	Average Score: 35.36	Score: 54.06 	Max Score: 54.06
-Episode 171	Average Score: 35.74	Score: 54.06 	Max Score: 54.06
-Episode 172	Average Score: 36.13	Score: 54.60 	Max Score: 54.60
-Episode 173	Average Score: 36.52	Score: 54.84 	Max Score: 54.84
-Episode 174	Average Score: 36.90	Score: 54.84 	Max Score: 54.84
-Episode 175	Average Score: 37.30	Score: 55.84 	Max Score: 55.84
-Episode 176	Average Score: 37.69	Score: 55.84 	Max Score: 55.84
-Episode 177	Average Score: 38.08	Score: 55.84 	Max Score: 55.84
-Episode 178	Average Score: 38.46	Score: 55.84 	Max Score: 55.84
-Episode 179	Average Score: 38.88	Score: 58.85 	Max Score: 58.85
-Episode 180	Average Score: 39.29	Score: 58.85 	Max Score: 58.85
-Episode 181	Average Score: 39.70	Score: 58.85 	Max Score: 58.85
-Episode 182	Average Score: 40.11	Score: 58.85 	Max Score: 58.85
-Episode 183	Average Score: 40.50	Score: 58.85 	Max Score: 58.85
-Episode 184	Average Score: 40.90	Score: 59.00 	Max Score: 59.00
-Episode 185	Average Score: 41.30	Score: 59.00 	Max Score: 59.00
-Episode 186	Average Score: 41.68	Score: 59.00 	Max Score: 59.00
-Episode 187	Average Score: 42.08	Score: 59.62 	Max Score: 59.62
-Episode 188	Average Score: 42.48	Score: 60.89 	Max Score: 60.89
-Episode 189	Average Score: 42.87	Score: 60.89 	Max Score: 60.89
-Episode 190	Average Score: 43.26	Score: 61.57 	Max Score: 61.57
-Episode 191	Average Score: 43.65	Score: 61.77 	Max Score: 61.77
-Episode 192	Average Score: 44.02	Score: 61.77 	Max Score: 61.77
-Episode 193	Average Score: 44.42	Score: 63.71 	Max Score: 63.71
-Episode 194	Average Score: 44.82	Score: 64.83 	Max Score: 64.83
-Episode 195	Average Score: 45.22	Score: 64.83 	Max Score: 64.83
-Episode 196	Average Score: 45.62	Score: 65.34 	Max Score: 65.34
-Episode 197	Average Score: 46.01	Score: 65.82 	Max Score: 65.82
-Episode 198	Average Score: 46.40	Score: 65.82 	Max Score: 65.82
-Episode 199	Average Score: 46.81	Score: 67.44 	Max Score: 67.44
-Episode 200	Average Score: 47.23	Score: 68.69 	Max Score: 68.69
-episodes: 200	avg: 47.23
-Episode 201	Average Score: 47.64	Score: 68.69 	Max Score: 68.69
-Episode 202	Average Score: 48.06	Score: 69.60 	Max Score: 69.60
-Episode 203	Average Score: 48.49	Score: 70.38 	Max Score: 70.38
-Episode 204	Average Score: 48.91	Score: 70.38 	Max Score: 70.38
-Episode 205	Average Score: 49.34	Score: 71.09 	Max Score: 71.09
-Episode 206	Average Score: 49.76	Score: 71.27 	Max Score: 71.27
-Episode 207	Average Score: 50.18	Score: 71.27 	Max Score: 71.27
-Episode 208	Average Score: 50.61	Score: 72.03 	Max Score: 72.03
-Episode 209	Average Score: 51.05	Score: 72.94 	Max Score: 72.94
-Episode 210	Average Score: 51.48	Score: 72.94 	Max Score: 72.94
-Episode 211	Average Score: 51.91	Score: 73.57 	Max Score: 73.57
-Episode 212	Average Score: 52.34	Score: 74.20 	Max Score: 74.20
-Episode 213	Average Score: 52.75	Score: 74.20 	Max Score: 74.20
-Episode 214	Average Score: 53.18	Score: 74.83 	Max Score: 74.83
-Episode 215	Average Score: 53.60	Score: 75.48 	Max Score: 75.48
-Episode 216	Average Score: 54.02	Score: 75.48 	Max Score: 75.48
-Episode 217	Average Score: 54.45	Score: 76.65 	Max Score: 76.65
-Episode 218	Average Score: 54.90	Score: 78.44 	Max Score: 78.44
-Episode 219	Average Score: 55.34	Score: 78.44 	Max Score: 78.44
-Episode 220	Average Score: 55.79	Score: 79.00 	Max Score: 79.00
-Episode 221	Average Score: 56.23	Score: 79.10 	Max Score: 79.10
-Episode 222	Average Score: 56.67	Score: 79.10 	Max Score: 79.10
-Episode 223	Average Score: 57.11	Score: 79.80 	Max Score: 79.80
-Episode 224	Average Score: 57.56	Score: 80.25 	Max Score: 80.25
-Episode 225	Average Score: 58.00	Score: 80.25 	Max Score: 80.25
-Episode 226	Average Score: 58.44	Score: 80.54 	Max Score: 80.54
-Episode 227	Average Score: 58.88	Score: 80.62 	Max Score: 80.62
-Episode 228	Average Score: 59.31	Score: 80.62 	Max Score: 80.62
-Episode 229	Average Score: 59.75	Score: 81.02 	Max Score: 81.02
-Episode 230	Average Score: 60.18	Score: 81.18 	Max Score: 81.18
-Episode 231	Average Score: 60.61	Score: 81.18 	Max Score: 81.18
-Episode 232	Average Score: 61.04	Score: 81.32 	Max Score: 81.32
-Episode 233	Average Score: 61.47	Score: 81.90 	Max Score: 81.90
-Episode 234	Average Score: 61.90	Score: 81.90 	Max Score: 81.90
-Episode 235	Average Score: 62.34	Score: 82.30 	Max Score: 82.30
-Episode 236	Average Score: 62.75	Score: 82.52 	Max Score: 82.52
-Episode 237	Average Score: 63.14	Score: 82.52 	Max Score: 82.52
-Episode 238	Average Score: 63.53	Score: 83.23 	Max Score: 83.23
-Episode 239	Average Score: 63.91	Score: 83.97 	Max Score: 83.97
-Episode 240	Average Score: 64.28	Score: 83.97 	Max Score: 83.97
-Episode 241	Average Score: 64.66	Score: 84.84 	Max Score: 84.84
-Episode 242	Average Score: 65.04	Score: 85.41 	Max Score: 85.41
-Episode 243	Average Score: 65.42	Score: 85.41 	Max Score: 85.41
-Episode 244	Average Score: 65.81	Score: 86.10 	Max Score: 86.10
-Episode 245	Average Score: 66.20	Score: 86.64 	Max Score: 86.64
-Episode 246	Average Score: 66.57	Score: 86.64 	Max Score: 86.64
-Episode 247	Average Score: 66.96	Score: 87.47 	Max Score: 87.47
-Episode 248	Average Score: 67.34	Score: 87.67 	Max Score: 87.67
-Episode 249	Average Score: 67.71	Score: 87.67 	Max Score: 87.67
-Episode 250	Average Score: 68.09	Score: 88.06 	Max Score: 88.06
-Episode 251	Average Score: 68.48	Score: 88.73 	Max Score: 88.73
-Episode 252	Average Score: 68.87	Score: 88.73 	Max Score: 88.73
-Episode 253	Average Score: 69.25	Score: 88.73 	Max Score: 88.73
-Episode 254	Average Score: 69.64	Score: 89.03 	Max Score: 89.03
-Episode 255	Average Score: 70.01	Score: 89.03 	Max Score: 89.03
-Episode 256	Average Score: 70.39	Score: 89.36 	Max Score: 89.36
-Episode 257	Average Score: 70.77	Score: 89.36 	Max Score: 89.36
-Episode 258	Average Score: 71.15	Score: 89.36 	Max Score: 89.36
-Episode 259	Average Score: 71.54	Score: 90.47 	Max Score: 90.47
-Episode 260	Average Score: 71.93	Score: 91.38 	Max Score: 91.38
-Episode 261	Average Score: 72.32	Score: 91.38 	Max Score: 91.38
-Episode 262	Average Score: 72.72	Score: 92.83 	Max Score: 92.83
-Episode 263	Average Score: 73.14	Score: 93.77 	Max Score: 93.77
-Episode 264	Average Score: 73.55	Score: 93.77 	Max Score: 93.77
-Episode 265	Average Score: 73.97	Score: 94.76 	Max Score: 94.76
-Episode 266	Average Score: 74.39	Score: 95.12 	Max Score: 95.12
-Episode 267	Average Score: 74.81	Score: 95.12 	Max Score: 95.12
-Episode 268	Average Score: 75.24	Score: 95.94 	Max Score: 95.94
-Episode 269	Average Score: 75.67	Score: 96.05 	Max Score: 96.05
-Episode 270	Average Score: 76.09	Score: 96.05 	Max Score: 96.05
-Episode 271	Average Score: 76.51	Score: 96.16 	Max Score: 96.16
-Episode 272	Average Score: 76.93	Score: 96.19 	Max Score: 96.19
-Episode 273	Average Score: 77.34	Score: 96.19 	Max Score: 96.19
-Episode 274	Average Score: 77.76	Score: 97.03 	Max Score: 97.03
-Episode 275	Average Score: 78.17	Score: 97.10 	Max Score: 97.10
-Episode 276	Average Score: 78.59	Score: 97.14 	Max Score: 97.14
-Episode 277	Average Score: 79.02	Score: 98.94 	Max Score: 98.94
-Episode 278	Average Score: 79.46	Score: 99.53 	Max Score: 99.53
-Episode 279	Average Score: 79.86	Score: 99.53 	Max Score: 99.53
-Episode 280	Average Score: 80.27	Score: 99.65 	Max Score: 99.65
-Episode 281	Average Score: 80.68	Score: 100.13 	Max Score: 100.13
-Episode 282	Average Score: 81.10	Score: 100.13 	Max Score: 100.13
-Episode 283	Average Score: 81.51	Score: 100.22 	Max Score: 100.22
-Episode 284	Average Score: 81.93	Score: 101.12 	Max Score: 101.12
-Episode 285	Average Score: 82.35	Score: 101.12 	Max Score: 101.12
-Episode 286	Average Score: 82.78	Score: 101.87 	Max Score: 101.87
-Episode 287	Average Score: 83.21	Score: 103.03 	Max Score: 103.03
-Episode 288	Average Score: 83.64	Score: 103.03 	Max Score: 103.03
-Episode 289	Average Score: 84.06	Score: 103.28 	Max Score: 103.28
-Episode 290	Average Score: 84.50	Score: 105.82 	Max Score: 105.82
-Episode 291	Average Score: 84.94	Score: 105.86 	Max Score: 105.86
-Episode 292	Average Score: 85.40	Score: 106.91 	Max Score: 106.91
-Episode 293	Average Score: 85.83	Score: 107.06 	Max Score: 107.06
-Episode 294	Average Score: 86.25	Score: 107.06 	Max Score: 107.06
-Episode 295	Average Score: 86.68	Score: 107.44 	Max Score: 107.44
-Episode 296	Average Score: 87.10	Score: 107.59 	Max Score: 107.59
-Episode 297	Average Score: 87.52	Score: 107.59 	Max Score: 107.59
-Episode 298	Average Score: 87.94	Score: 108.29 	Max Score: 108.29
-Episode 299	Average Score: 88.35	Score: 108.70 	Max Score: 108.70
-Episode 300	Average Score: 88.75	Score: 108.70 	Max Score: 108.70
-episodes: 300	avg: 88.75
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
 
 
 <div class="output_png output_subarea ">
-<img src="data:image/png;base64,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
+<img src="data:image/png;base64,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
 "
 >
 </div>
@@ -12483,7 +12500,7 @@ episodes: 300	avg: 88.75
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">env</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
