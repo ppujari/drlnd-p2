@@ -60,10 +60,7 @@ The main file of this project is `Continuous_Control.ipynb`. To use a Jupyter no
 ```
 jupyter notebook
 ```
-and open `Continuous_Control.ipynb` from the list of files.  Alternatively, you may prefer to work with the [JupyterLab](https://jupyterlab.readthedocs.io/en/latest/) interface.  To do this, run this command instead:
-```
-jupyter-lab
-```
+and open `Continuous_Control.ipynb` from the list of files.  
 
 Once the project notebook has been opened, you can simply click the "Run->" button in the main menu to execute the python program that opens the Unity Reacher playing field and starts to train 20 agents solve this environment.
 
